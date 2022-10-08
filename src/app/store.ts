@@ -1,4 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
+import boardReducer from "../features/board/boardSlice";
 import difficultyReducer from "../features/difficulty/difficultySlice";
 import rowReducer from "../features/row/rowSlice";
 import secretSequenceReducer from "../features/secretSequence/secretSequenceSlice";
@@ -6,6 +7,7 @@ import secretSequenceReducer from "../features/secretSequence/secretSequenceSlic
 const store = configureStore({
   reducer: {
     difficulty: difficultyReducer,
+    board: boardReducer,
     secretSequence: secretSequenceReducer,
     row: rowReducer
   }

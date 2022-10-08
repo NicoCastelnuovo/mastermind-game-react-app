@@ -1,15 +1,15 @@
 import { useEffect } from "react";
-import { selectDifficulty } from "../difficulty/difficultySlice";
+import { selectDifficultyRow } from "../difficulty/difficultySlice";
 import { createRow, increment, selectRow } from "./rowSlice";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 
 const Row: React.FC = () => {
-  const difficulty = useAppSelector(selectDifficulty)
+  const difficultyRow = useAppSelector(selectDifficultyRow)
   const row = useAppSelector(selectRow);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(createRow(difficulty));
+    dispatch(createRow(difficultyRow));
   }, [])
   
   return (
@@ -19,9 +19,9 @@ const Row: React.FC = () => {
           row.map((item, i) => {
             return (
               <button key={`userDot_${i}`} 
-                className='user dot'
+                className={`user dot color-${row[i]}`}
                 onClick={() => dispatch(increment(i))}> 
-                  0 
+                  {row[i]}
               </button>
             )
           })

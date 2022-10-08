@@ -1,17 +1,17 @@
 import { useEffect } from "react";
-import { selectDifficulty } from "../features/difficulty/difficultySlice";
+import { selectDifficultyRow } from "../features/difficulty/difficultySlice";
 import { createNewSequence, selectSecretSequence } from "../features/secretSequence/secretSequenceSlice";
 import Board from "./Board";
 import { useAppDispatch, useAppSelector } from "./hooks";
 import Messages from "./Messages";
 
 const GamePage: React.FC = () => {
-  const difficulty = useAppSelector(selectDifficulty);
+  const difficultyRow = useAppSelector(selectDifficultyRow);
   const secretSequence = useAppSelector(selectSecretSequence)
   const dispatch = useAppDispatch();
   
   useEffect(() => {
-    dispatch(createNewSequence(difficulty))
+    dispatch(createNewSequence(difficultyRow))
   }, [])
 
   return (

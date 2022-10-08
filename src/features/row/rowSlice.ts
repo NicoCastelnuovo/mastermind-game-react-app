@@ -1,9 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { type } from "@testing-library/user-event/dist/types/setup/directApi";
 import { RootState } from "../../app/store";
 
 export interface rowState {
-  value: [number, number, number, number, number?, number?]
+  value: number[]
 }
 
 const initialState: rowState = {
@@ -20,9 +19,13 @@ const rowSlice = createSlice({
       }
     },
     increment(state, action: PayloadAction<number>) {
-      // increment the clicked dot
       const index = action.payload;
-      // Narrowing with 'undefined' doesnt' work
+      if (state.value[index] < 6) {
+        state.value[index] += 1;
+      }
+      else {
+        state.value[index] = 0;
+      }
     }
   }
 });

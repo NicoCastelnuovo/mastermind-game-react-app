@@ -1,34 +1,48 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
 
 export interface difficultyState {
-  value: number;
+  row: number;
+  column: number;
 }
 
 const initialState: difficultyState = {
-  value: 4
+  row: 4,
+  column: 8
 }
 
 const difficultySlice = createSlice({
   name: 'difficulty',
   initialState,
   reducers: {
-    increment(state) {
-      if (state.value < 6) {
-        state.value += 1;
+    incrementRow(state) {
+      if (state.row < 6) {
+        state.row += 1;
       }
     },
-    decrement(state) {
-      if (state.value > 4) {
-        state.value -= 1;
+    decrementRow(state) {
+      if (state.row > 4) {
+        state.row -= 1;
+      }
+    },
+    incrementColumn(state) {
+      if (state.column < 10) {
+        state.column += 1;
+      }
+    },
+    decrementColumn(state) {
+      if (state.column > 6) {
+        state.column -= 1;
       }
     }
   }
 });
 
 // selector
-export const selectDifficulty = (state: RootState) => state.difficulty.value;
+export const selectDifficulty = (state: RootState) => state.difficulty;
+export const selectDifficultyRow = (state: RootState) => state.difficulty.row;
+export const selectDifficultyColumn = (state: RootState) => state.difficulty.column;
 
 // export actions and reducer
-export const { increment, decrement } = difficultySlice.actions;
+export const { incrementRow, decrementRow, incrementColumn, decrementColumn } = difficultySlice.actions;
 export default difficultySlice.reducer;
