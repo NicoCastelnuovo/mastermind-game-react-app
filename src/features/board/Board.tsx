@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { selectDifficulty } from "../difficulty/difficultySlice";
-import { selectBoard, createBoard, changeColor, checkAnswer, selectBlacks, selectWhites } from "./boardSlice";
+import { selectBoard, createBoard, changeColor, checkAnswer, selectBlacks, selectWhites, selectCurrentRow } from "./boardSlice";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { selectSecretSequence } from "../secretSequence/secretSequenceSlice";
 
@@ -10,6 +10,7 @@ const Board: React.FC = () => {
   const board = useAppSelector(selectBoard)
   const blacks = useAppSelector(selectBlacks)
   const whites = useAppSelector(selectWhites)
+  const currentRow = useAppSelector(selectCurrentRow)
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -21,7 +22,7 @@ const Board: React.FC = () => {
       {
         board.map((row, rowIndex) => {
           return (
-            <div className="Row">
+            <div className={`Row ${currentRow === rowIndex ? `currentRow` : null}`}>
               <div className="UserSequence">
                 {
                   row.map((dotValue, dotIndex) => {
@@ -44,8 +45,8 @@ const Board: React.FC = () => {
                 }
                 {
                   whites[rowIndex] > 0
-                  ? [...Array(whites[rowIndex])].map(item => <span className="cpu dot white"></span>)
-                  : null
+                    ? [...Array(whites[rowIndex])].map(item => <span className="cpu dot white"></span>)
+                    : null
                 }
               </div>
             </div>

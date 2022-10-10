@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
 
 // State type
-export interface boardState {
+export interface BoardState {
   board: number[][];
   currentRow: number;
   blacks: number[];
@@ -23,7 +23,7 @@ type R = {
   secretSequence: number[];
 }
 
-const initialState: boardState = {
+const initialState: BoardState = {
   board: 
   [
     [0, 0, 0, 0, 0, 0],
@@ -50,13 +50,14 @@ const boardSlice = createSlice({
       }
     },
     createBoard(state, action: PayloadAction<P>) {
-      state.currentRow = 0;
-      state.isGuessed = false;
+      let { board, currentRow, isGuessed } = state;
+      currentRow = 0;
+      isGuessed = false;
       const { rowLength, columnLength } = action.payload;
-      if (rowLength < state.board[0].length) {
+      if (rowLength < board[0].length) {
         boardSlice.caseReducers.createRow(state, action);
       }
-      if (columnLength > state.board.length) {
+      if (columnLength > board.length) {
         boardSlice.caseReducers.createColumn(state, action);
       }
     },
@@ -71,40 +72,41 @@ const boardSlice = createSlice({
         }
       }
     },
-    changeCurrentRow(state) {
+    incrementCurrentRow(state) {
       state.currentRow += 1;
     },
     checkAnswer(state, action: PayloadAction<R>) {
       const userAnswer = state.board[state.currentRow];
       const { secretSequence } = action.payload;
-      console.log(`SecretSequence is: ${secretSequence}`) // 1312
-      console.log(`userAnswer is: ${userAnswer}`) // 1451
       // Blacks
+      let userAnswerCopy = [...userAnswer];
+      let secretSequenceCopy = [...secretSequence];
       let blackCurrentRow = 0;
-      for (let i = 0; i < secretSequence.length; i++) {
-        if (userAnswer[i] === secretSequence[i]) {
+      for (let i = 0; i < secretSequenceCopy.length; i++) {
+        if (userAnswerCopy[i] === secretSequenceCopy[i]) {
           blackCurrentRow += 1;
+          userAnswerCopy.splice(i, 1, 0);
+          secretSequenceCopy.splice(i, 1, 0);
         }
       };
       state.blacks.push(blackCurrentRow)
-      console.log(`BlackCurrent are ${blackCurrentRow}`)
-      // Whites
-      let userAnswerCopy = [...userAnswer];
-      let whiteCurrentRow = 0;
-      for (let i = 0; i < secretSequence.length; i++) {
-        if (secretSequence.indexOf(userAnswerCopy[i]) != -1) {
-          userAnswerCopy.splice(i, 1);
-          whiteCurrentRow += 1;
+      // Whites --- case 4644 a4444 => 3black1white
+      // some cases dont work
+      if (blackCurrentRow != state.board[0].length) {
+        console.log(`userAnswerCopy is ${userAnswerCopy}`)
+        console.log(`blacks is ${state.blacks}`)
+        console.log(`secretSequenceCopy is ${secretSequenceCopy}`)
+        let whiteCurrentRow = 0;
+        for (let i = 0; i < userAnswerCopy.length; i++) {
+
         }
+        state.whites.push(whiteCurrentRow)
+        console.log(`whites is ${state.whites}`)
       }
-      state.whites.push(whiteCurrentRow);
-      console.log(`WhiteCurrent are ${whiteCurrentRow}`)
-      // if (state.blacks === state.board[0].length) {
-      //   console.log('VICTORY!')
-      //   state.isGuessed = true;
-      //   state.currentRow = 99;
-      // }
-      boardSlice.caseReducers.changeCurrentRow(state);
+      else {
+        state.isGuessed = true;
+      }
+      boardSlice.caseReducers.incrementCurrentRow(state);
     },
   },
 });
@@ -112,5 +114,6 @@ const boardSlice = createSlice({
 export const selectBoard = (state: RootState) => state.board.board;
 export const selectBlacks = (state: RootState) => state.board.blacks;
 export const selectWhites = (state: RootState) => state.board.whites;
+export const selectCurrentRow = (state: RootState) => state.board.currentRow;
 export const { createBoard, changeColor, checkAnswer } = boardSlice.actions;
 export default boardSlice.reducer;

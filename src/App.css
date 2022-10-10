@@ -11,15 +11,14 @@ header {
   top: 0;
   left: 0;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  background-color: aquamarine;
+  padding-bottom: 3px;
+  background-color: rgb(182, 55, 55);
 }
-h1 {
-}
-.github-link {
-  color: black;
-  font-size: 3rem;
+.Title {
+  color: white;
+  text-decoration: none;
 }
 
 /* ------------ INTRO PAGE ------------ */
@@ -30,6 +29,8 @@ h1 {
   flex-flow: column;
   justify-content: center;
   align-items: center;
+  color: white;
+  background-color: black;
 }
 .Difficulty {
   display: flex;
@@ -45,29 +46,31 @@ h1 {
 /* ------------ GAME PAGE ------------ */
 .GamePage {
   width: 100%;
-  height: 100%;
-  margin-top: 64px;
+  height: 100vh;
   display: flex;
   flex-flow: column;
   justify-content: center;
   align-items: center;
+  color: white;
+  background-color: black;
 }
 .Board {
-  height: 80vh;
-  margin-top: 6vh;
+  background-color: rgb(59, 59, 59);
+  padding: 36px;
+  border-radius: 3px;
 }
 .Row {
   display: flex;
-  background-color: bisque;
 }
-.PlayerBox {
-  background-color: aqua;
+.currentRow {
+  background-color: rgb(92, 92, 92);
+}
+.UserSequence {
 }
 .CpuBox {
   display: flex;
   flex-flow: row wrap;
   width: 32px;
-  background-color: rgb(89, 173, 173);
 }
 
 /* ------------ DOTS ------------ */

@@ -4,12 +4,9 @@ import { FaGithub } from 'react-icons/fa';
 const Header: React.FC = () => {
   return (
     <header>
-      <Link to='/'>
+      <Link className='Title' to='/'>
         <h1>Mastermind</h1>
       </Link>
-      <a className='github-link' href="#">
-        <FaGithub />
-      </a>
     </header>
   )
 }
