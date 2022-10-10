@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { selectDifficultyRow } from "../features/difficulty/difficultySlice";
 import { createNewSequence, selectSecretSequence } from "../features/secretSequence/secretSequenceSlice";
-import Board from "./Board";
+import Board from "../features/board/Board";
 import { useAppDispatch, useAppSelector } from "./hooks";
 import Messages from "./Messages";
 

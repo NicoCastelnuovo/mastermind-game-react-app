@@ -1,35 +1,53 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
 
+// State type
 export interface boardState {
-  [row: number]: number[];
+  board: number[][];
 }
 
+// Payload types
+type P = {
+  rowLength: number;
+  columnLength: number;
+};
+
 const initialState: boardState = {
-  0: [0, 0, 0, 0],
-  1: [0, 0, 0, 0],
-  2: [0, 0, 0, 0],
-  3: [0, 0, 0, 0],
-  4: [0, 0, 0, 0],
-  5: [0, 0, 0, 0],
+  board: 
+  [
+    [0, 0, 0, 0, 0, 0],
+  ]
 }
 
 const boardSlice = createSlice({
   name: 'board',
   initialState,
   reducers: {
-    createRow(state, action: PayloadAction<number>) {
+    createRow(state, action: PayloadAction<P>) {
+      const { rowLength } = action.payload;
+      state.board[0].length = rowLength;
     },
-    createColumn(state, action: PayloadAction<number>) {
+    createColumn(state, action: PayloadAction<P>) {
+      const { columnLength } = action.payload;
+      let index = state.board.length;
+      for (index; index != columnLength; index++) {
+        state.board.push(state.board[0])
+      }
     },
-    createBoard() {
-
+    createBoard(state, action: PayloadAction<P>) {
+      const { rowLength, columnLength } = action.payload;
+      if (rowLength < state.board[0].length) {
+        boardSlice.caseReducers.createRow(state, action);
+      }
+      if (columnLength > state.board.length) {
+        boardSlice.caseReducers.createColumn(state, action);
+      }
     },
     increment(state, action: PayloadAction<number>) {
     },
   }
 });
 
-export const selectBoard = (state: RootState) => state.board;
+export const selectBoard = (state: RootState) => state.board.board;
 export const { createBoard, increment } = boardSlice.actions;
 export default boardSlice.reducer;
