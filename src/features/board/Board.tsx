@@ -37,16 +37,16 @@ const Board: React.FC = () => {
                 }
               </div>
               <div className="CpuBox">
-                {/* {
-                  blacks.map((item, i) => {
-                    if (rowIndex === i && item > 0) {
-                      return <span className="cpu dot black"></span>
-                    }
-                  })
-                } */}
-                {/* {
-                  [...Array(whites)].map(item => <span className="cpu dot white"></span>)
-                } */}
+                {
+                  blacks[rowIndex] > 0
+                    ? [...Array(blacks[rowIndex])].map(item => <span className="cpu dot black"></span>)
+                    : null
+                }
+                {
+                  whites[rowIndex] > 0
+                  ? [...Array(whites[rowIndex])].map(item => <span className="cpu dot white"></span>)
+                  : null
+                }
               </div>
             </div>
           )

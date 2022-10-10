@@ -5,8 +5,8 @@ import { RootState } from "../../app/store";
 export interface boardState {
   board: number[][];
   currentRow: number;
-  blacks: number;
-  whites: number;
+  blacks: number[];
+  whites: number[];
   isGuessed: boolean;
 }
 
@@ -29,8 +29,8 @@ const initialState: boardState = {
     [0, 0, 0, 0, 0, 0],
   ],
   currentRow: 0,
-  blacks: 0,
-  whites: 0,
+  blacks: [],
+  whites: [],
   isGuessed: false
 }
 
@@ -80,26 +80,30 @@ const boardSlice = createSlice({
       console.log(`SecretSequence is: ${secretSequence}`) // 1312
       console.log(`userAnswer is: ${userAnswer}`) // 1451
       // Blacks
+      let blackCurrentRow = 0;
       for (let i = 0; i < secretSequence.length; i++) {
         if (userAnswer[i] === secretSequence[i]) {
-          state.blacks += 1;
+          blackCurrentRow += 1;
         }
       };
+      state.blacks.push(blackCurrentRow)
+      console.log(`BlackCurrent are ${blackCurrentRow}`)
       // Whites
       let userAnswerCopy = [...userAnswer];
+      let whiteCurrentRow = 0;
       for (let i = 0; i < secretSequence.length; i++) {
         if (secretSequence.indexOf(userAnswerCopy[i]) != -1) {
           userAnswerCopy.splice(i, 1);
-          state.whites += 1;
+          whiteCurrentRow += 1;
         }
       }
-      console.log(`Black are ${state.blacks}`)
-      console.log(`White are ${state.whites}`)
-      if (state.blacks === state.board[0].length) {
-        console.log('VICTORY!')
-        state.isGuessed = true;
-        state.currentRow = 99;
-      }
+      state.whites.push(whiteCurrentRow);
+      console.log(`WhiteCurrent are ${whiteCurrentRow}`)
+      // if (state.blacks === state.board[0].length) {
+      //   console.log('VICTORY!')
+      //   state.isGuessed = true;
+      //   state.currentRow = 99;
+      // }
       boardSlice.caseReducers.changeCurrentRow(state);
     },
   },
