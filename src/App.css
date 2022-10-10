@@ -76,6 +76,7 @@ h1 {
   display: inline-block;
   margin-bottom: 12px;
   background-color: #bbb;
+  border: none;
 }
 .dot.user {
   height: 25px;
@@ -93,3 +94,6 @@ h1 {
 .color-4 { background-color: green; }
 .color-5 { background-color: violet; }
 .color-6 { background-color: rgb(255, 115, 0); }
+
+.black { background-color: black; }
+.white { background-color: white; }

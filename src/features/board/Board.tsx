@@ -1,53 +1,61 @@
 import { useEffect } from "react";
-import { selectDifficulty, selectDifficultyColumn } from "../difficulty/difficultySlice";
-import { selectBoard, createBoard } from "./boardSlice";
+import { selectDifficulty } from "../difficulty/difficultySlice";
+import { selectBoard, createBoard, changeColor, checkAnswer, selectBlacks, selectWhites } from "./boardSlice";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { selectSecretSequence } from "../secretSequence/secretSequenceSlice";
 
 const Board: React.FC = () => {
   const difficulty = useAppSelector(selectDifficulty)
+  const secretSequence = useAppSelector(selectSecretSequence);
   const board = useAppSelector(selectBoard)
+  const blacks = useAppSelector(selectBlacks)
+  const whites = useAppSelector(selectWhites)
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(createBoard(difficulty))
   }, []);
 
-  console.log(board)
-
   return (
     <div className="Board">
       {
-        board.map((item, i) => {
+        board.map((row, rowIndex) => {
           return (
-            <div>CONTENT</div>
+            <div className="Row">
+              <div className="UserSequence">
+                {
+                  row.map((dotValue, dotIndex) => {
+                    return (
+                      <button
+                        key={`userDot_${dotIndex}`}
+                        className={`user dot color-${dotValue}`}
+                        onClick={() => dispatch(changeColor({ rowIndex, dotIndex }))}>
+                          {dotValue}
+                      </button>
+                    )
+                  })
+                }
+              </div>
+              <div className="CpuBox">
+                {/* {
+                  blacks.map((item, i) => {
+                    if (rowIndex === i && item > 0) {
+                      return <span className="cpu dot black"></span>
+                    }
+                  })
+                } */}
+                {/* {
+                  [...Array(whites)].map(item => <span className="cpu dot white"></span>)
+                } */}
+              </div>
+            </div>
           )
         })
       }
       {/* <SecretSequence /> */}
+      <button onClick={() => dispatch(checkAnswer({ secretSequence }))}> Check your Answer </button>
     </div>
   )
 }
 
 export default Board;
-
-    // <div className="Row">
-    //   <div className="UserSequence">
-    //     {
-    //       row.map((item, i) => {
-    //         return (
-    //           <button key={`userDot_${i}`} 
-    //             className={`user dot color-${row[i]}`}
-    //             onClick={() => dispatch(increment(i))}> 
-    //               {row[i]}
-    //           </button>
-    //         )
-    //       })
-    //     }
-    //   </div>
-    //   <div className="CpuBox">
-    //     <span className="cpu dot"></span>
-    //     <span className="cpu dot"></span>
-    //     <span className="cpu dot"></span>
-    //     <span className="cpu dot"></span>
-    //   </div>
-    // </div>

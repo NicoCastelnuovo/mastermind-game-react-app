@@ -17,7 +17,7 @@ const secretSequenceSlice = createSlice({
       state.value = [];
       const sequenceLength = action.payload;
       for (let i = 0; i < sequenceLength; i++) {
-        const randomNumber = Math.floor(Math.random() * (sequenceLength - 1) + 1);
+        const randomNumber = Math.floor(Math.random() * (6 - 1 + 1) + 1); // numbers between 1 & 6 inclusive
         state.value = [...state.value, randomNumber];
       }
     },
