@@ -20,6 +20,7 @@ const secretSequenceSlice = createSlice({
         const randomNumber = Math.floor(Math.random() * (6 - 1 + 1) + 1); // numbers between 1 & 6 inclusive
         state.value = [...state.value, randomNumber];
       }
+      // state.value = [5, 4, 5, 6] // REMOVE
     },
   }
 });

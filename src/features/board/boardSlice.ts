@@ -91,8 +91,10 @@ const boardSlice = createSlice({
           secretSequenceCopy.splice(i, 1, 7);
         }
       };
+      console.log(`SecretSequenceCopy is ${secretSequenceCopy}`)
+      console.log(`userAnswerCopy is ${userAnswerCopy}`)
       state.blacks.push(blackCurrentRow)
-      // Whites
+      // Check if guessed, else check for WhitePegs
       if (blackCurrentRow === state.board[0].length) {
         state.endGame = true;
         state.victory = true;
@@ -101,6 +103,7 @@ const boardSlice = createSlice({
         let whiteCurrentRow = 0;
         for (let i = 0; i < userAnswerCopy.length; i++) {
           if (secretSequenceCopy.indexOf(userAnswerCopy[i]) != -1 && userAnswerCopy[i] != 7) {
+            secretSequenceCopy.splice(secretSequenceCopy.indexOf(userAnswerCopy[i]), 1, 7);
             whiteCurrentRow += 1;
           }
         }

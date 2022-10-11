@@ -16,7 +16,7 @@ const GamePage: React.FC = () => {
   return (
     <main className="GamePage">
       <div>
-        { secretSequence.map(item => item) } {/* Erase the secret sequence */}
+        {/* { secretSequence.map(item => item) } Erase the secret sequence */}
       </div>
       <Board />
     </main>

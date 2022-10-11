@@ -26,12 +26,14 @@ const Board: React.FC = () => {
       {
         board.map((row, rowIndex) => {
           return (
-            <div className={`Row ${currentRow === rowIndex ? `currentRow` : null}`}>
+            <div className={`Row ${currentRow === rowIndex ? `currentRow` : null}`}
+              key={`row_${rowIndex}`}>
               <div className="UserSequence">
                 {
                   row.map((dotValue, dotIndex) => {
                     return (
                       <DotButton
+                        key={`userDot_${dotIndex}`}
                         dotValue={dotValue}
                         dotIndex={dotIndex}
                         rowIndex={rowIndex} />
@@ -42,12 +44,12 @@ const Board: React.FC = () => {
               <div className="CpuBox">
                 {
                   blacks[rowIndex] > 0
-                    ? [...Array(blacks[rowIndex])].map(item => <span className="cpu dot black"></span>)
+                    ? [...Array(blacks[rowIndex])].map((item, i) => <span key={`black_${i}`} className="cpu dot black"></span>)
                     : null
                 }
                 {
                   whites[rowIndex] > 0
-                    ? [...Array(whites[rowIndex])].map(item => <span className="cpu dot white"></span>)
+                    ? [...Array(whites[rowIndex])].map((item, i) => <span key={`white_${i}`} className="cpu dot white"></span>)
                     : null
                 }
               </div>

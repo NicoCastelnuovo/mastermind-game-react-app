@@ -15,6 +15,7 @@ const EndGame = () => {
           secretSequence.map((dotValue, dotIndex) => {
             return (
               <DotButton
+                key={`secretDot_${dotIndex}`}
                 dotValue={dotValue}
                 dotIndex={dotIndex} />
             )

@@ -11,14 +11,10 @@ const DotButton = ({ dotIndex, dotValue, rowIndex }: {
 
   return (
     typeof rowIndex === 'number'
-      ? <button
-          key={`userDot_${dotIndex}`}
-          className={`user dot color-${dotValue}`}
+      ? <button className={`user dot color-${dotValue}`}
           onClick={() => dispatch(changeColor({ rowIndex, dotIndex }))}>
         </button>
-      : <button
-          key={`userDot_${dotIndex}`}
-          className={`user dot color-${dotValue}`}>
+      : <button className={`user dot color-${dotValue}`}>
         </button>
   )
 }
