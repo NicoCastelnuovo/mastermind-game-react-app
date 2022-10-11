@@ -7,7 +7,8 @@ export interface BoardState {
   currentRow: number;
   blacks: number[];
   whites: number[];
-  isGuessed: boolean;
+  endGame: boolean;
+  victory: boolean;
 }
 
 // Payload types
@@ -31,7 +32,8 @@ const initialState: BoardState = {
   currentRow: 0,
   blacks: [],
   whites: [],
-  isGuessed: false
+  endGame: false,
+  victory: false,
 }
 
 const boardSlice = createSlice({
@@ -50,9 +52,9 @@ const boardSlice = createSlice({
       }
     },
     createBoard(state, action: PayloadAction<P>) {
-      let { board, currentRow, isGuessed } = state;
+      let { board, currentRow, endGame } = state;
       currentRow = 0;
-      isGuessed = false;
+      endGame = false;
       const { rowLength, columnLength } = action.payload;
       if (rowLength < board[0].length) {
         boardSlice.caseReducers.createRow(state, action);
@@ -90,12 +92,12 @@ const boardSlice = createSlice({
         }
       };
       state.blacks.push(blackCurrentRow)
-      // Whites --- case 4644 a4444 => 3black1white
-      // some cases dont work
-      if (blackCurrentRow != state.board[0].length) {
-        console.log(`userAnswerCopy is ${userAnswerCopy}`)
-        console.log(`blacks is ${state.blacks}`)
-        console.log(`secretSequenceCopy is ${secretSequenceCopy}`)
+      // Whites
+      if (blackCurrentRow === state.board[0].length) {
+        state.endGame = true;
+        state.victory = true;
+      }
+      else {
         let whiteCurrentRow = 0;
         for (let i = 0; i < userAnswerCopy.length; i++) {
           if (secretSequenceCopy.indexOf(userAnswerCopy[i]) != -1 && userAnswerCopy[i] != 7) {
@@ -103,19 +105,17 @@ const boardSlice = createSlice({
           }
         }
         state.whites.push(whiteCurrentRow)
-        console.log(`whites is ${state.whites}`)
-      }
-      else {
-        state.isGuessed = true;
+        if (state.currentRow + 1 === state.board.length) {
+          state.endGame = true;
+          state.victory = false;
+        }
       }
       boardSlice.caseReducers.incrementCurrentRow(state);
     },
   },
 });
 
-export const selectBoard = (state: RootState) => state.board.board;
-export const selectBlacks = (state: RootState) => state.board.blacks;
-export const selectWhites = (state: RootState) => state.board.whites;
-export const selectCurrentRow = (state: RootState) => state.board.currentRow;
+export const selectVictory = (state: RootState) => state.board.victory;
+export const selectBoardState = (state: RootState) => state.board;
 export const { createBoard, changeColor, checkAnswer } = boardSlice.actions;
 export default boardSlice.reducer;

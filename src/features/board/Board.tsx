@@ -1,16 +1,20 @@
 import { useEffect } from "react";
 import { selectDifficulty } from "../difficulty/difficultySlice";
-import { selectBoard, createBoard, changeColor, checkAnswer, selectBlacks, selectWhites, selectCurrentRow } from "./boardSlice";
+import { createBoard, changeColor, checkAnswer, selectBoardState } from "./boardSlice";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { selectSecretSequence } from "../secretSequence/secretSequenceSlice";
+import EndGame from "../../app/EndGame";
+import DotButton from "./DotButton";
 
 const Board: React.FC = () => {
   const difficulty = useAppSelector(selectDifficulty)
   const secretSequence = useAppSelector(selectSecretSequence);
-  const board = useAppSelector(selectBoard)
-  const blacks = useAppSelector(selectBlacks)
-  const whites = useAppSelector(selectWhites)
-  const currentRow = useAppSelector(selectCurrentRow)
+  const { 
+    board,
+    blacks,
+    whites,
+    currentRow,
+    endGame } = useAppSelector(selectBoardState);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -27,12 +31,10 @@ const Board: React.FC = () => {
                 {
                   row.map((dotValue, dotIndex) => {
                     return (
-                      <button
-                        key={`userDot_${dotIndex}`}
-                        className={`user dot color-${dotValue}`}
-                        onClick={() => dispatch(changeColor({ rowIndex, dotIndex }))}>
-                          {/* {dotValue} */}
-                      </button>
+                      <DotButton
+                        dotValue={dotValue}
+                        dotIndex={dotIndex}
+                        rowIndex={rowIndex} />
                     )
                   })
                 }
@@ -53,8 +55,14 @@ const Board: React.FC = () => {
           )
         })
       }
-      {/* <SecretSequence /> */}
-      <button onClick={() => dispatch(checkAnswer({ secretSequence }))}> Check your Answer </button>
+      {
+        endGame
+          ? <EndGame />
+          : <button className='check-button' 
+              onClick={() => dispatch(checkAnswer({ secretSequence }))}>
+                Check your Answer
+            </button>
+      }
     </div>
   )
 }

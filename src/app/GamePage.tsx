@@ -3,7 +3,6 @@ import { selectDifficultyRow } from "../features/difficulty/difficultySlice";
 import { createNewSequence, selectSecretSequence } from "../features/secretSequence/secretSequenceSlice";
 import Board from "../features/board/Board";
 import { useAppDispatch, useAppSelector } from "./hooks";
-import Messages from "./Messages";
 
 const GamePage: React.FC = () => {
   const difficultyRow = useAppSelector(selectDifficultyRow);
@@ -17,12 +16,9 @@ const GamePage: React.FC = () => {
   return (
     <main className="GamePage">
       <div>
-        {
-          secretSequence.map(item => item)
-        }
+        { secretSequence.map(item => item) } {/* Erase the secret sequence */}
       </div>
       <Board />
-      <Messages /> 
     </main>
   )
 }

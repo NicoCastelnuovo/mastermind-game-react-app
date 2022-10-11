@@ -8,7 +8,8 @@ const IntroductionPage: React.FC = () => {
   return (
     <main className='IntroductionPage'>
       <Difficulty />
-      <Link to={'/game'}>Start a round VS Cpu</Link>
+      <Link className='start-button' 
+        to={'/game'}>Start</Link>
     </main>
   )
 }

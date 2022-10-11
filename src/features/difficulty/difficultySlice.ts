@@ -15,34 +15,28 @@ const difficultySlice = createSlice({
   name: 'difficulty',
   initialState,
   reducers: {
-    incrementRow(state) {
-      if (state.rowLength < 6) {
-        state.rowLength += 1;
+    increment (state, action: PayloadAction<string>) {
+      if (action.payload === 'Row') {
+        if (state.rowLength < 6) state.rowLength += 1;
+      } else {
+        if (state.columnLength < 10) state.columnLength += 1;
       }
     },
-    decrementRow(state) {
-      if (state.rowLength > 4) {
-        state.rowLength -= 1;
+    decrement (state, action: PayloadAction<string>) {
+      if (action.payload === 'Row') {
+        if (state.rowLength > 4) state.rowLength -= 1;
+      } else {
+        if (state.columnLength > 6) state.columnLength -= 1;
       }
     },
-    incrementColumn(state) {
-      if (state.columnLength < 10) {
-        state.columnLength += 1;
-      }
-    },
-    decrementColumn(state) {
-      if (state.columnLength > 6) {
-        state.columnLength -= 1;
-      }
-    }
   }
 });
 
-// selector
+// selectors
 export const selectDifficulty = (state: RootState) => state.difficulty;
 export const selectDifficultyRow = (state: RootState) => state.difficulty.rowLength;
 export const selectDifficultyColumn = (state: RootState) => state.difficulty.columnLength;
 
 // export actions and reducer
-export const { incrementRow, decrementRow, incrementColumn, decrementColumn } = difficultySlice.actions;
+export const { increment, decrement } = difficultySlice.actions;
 export default difficultySlice.reducer;
