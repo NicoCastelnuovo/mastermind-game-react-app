@@ -85,8 +85,8 @@ const boardSlice = createSlice({
       for (let i = 0; i < secretSequenceCopy.length; i++) {
         if (userAnswerCopy[i] === secretSequenceCopy[i]) {
           blackCurrentRow += 1;
-          userAnswerCopy.splice(i, 1, 0);
-          secretSequenceCopy.splice(i, 1, 0);
+          userAnswerCopy.splice(i, 1, 7);
+          secretSequenceCopy.splice(i, 1, 7);
         }
       };
       state.blacks.push(blackCurrentRow)
@@ -98,7 +98,9 @@ const boardSlice = createSlice({
         console.log(`secretSequenceCopy is ${secretSequenceCopy}`)
         let whiteCurrentRow = 0;
         for (let i = 0; i < userAnswerCopy.length; i++) {
-
+          if (secretSequenceCopy.indexOf(userAnswerCopy[i]) != -1 && userAnswerCopy[i] != 7) {
+            whiteCurrentRow += 1;
+          }
         }
         state.whites.push(whiteCurrentRow)
         console.log(`whites is ${state.whites}`)

@@ -31,7 +31,7 @@ const Board: React.FC = () => {
                         key={`userDot_${dotIndex}`}
                         className={`user dot color-${dotValue}`}
                         onClick={() => dispatch(changeColor({ rowIndex, dotIndex }))}>
-                          {dotValue}
+                          {/* {dotValue} */}
                       </button>
                     )
                   })
