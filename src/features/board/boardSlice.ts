@@ -11,7 +11,7 @@ export interface BoardState {
   victory: boolean;
 }
 
-// Payload types
+// PayloadAction types
 type P = {
   rowLength: number;
   columnLength: number;
@@ -19,10 +19,10 @@ type P = {
 type Q = {
   rowIndex: number;
   dotIndex: number;
-}
+};
 type R = {
   secretSequence: number[];
-}
+};
 
 const initialState: BoardState = {
   board: 
@@ -52,14 +52,13 @@ const boardSlice = createSlice({
       }
     },
     createBoard(state, action: PayloadAction<P>) {
-      let { board, currentRow, endGame } = state;
-      currentRow = 0;
-      endGame = false;
+      state.currentRow = 0;
+      state.endGame = false;
       const { rowLength, columnLength } = action.payload;
-      if (rowLength < board[0].length) {
+      if (rowLength < state.board[0].length) {
         boardSlice.caseReducers.createRow(state, action);
       }
-      if (columnLength > board.length) {
+      if (columnLength > state.board.length) {
         boardSlice.caseReducers.createColumn(state, action);
       }
     },
@@ -91,8 +90,8 @@ const boardSlice = createSlice({
           secretSequenceCopy.splice(i, 1, 7);
         }
       };
-      console.log(`SecretSequenceCopy is ${secretSequenceCopy}`)
-      console.log(`userAnswerCopy is ${userAnswerCopy}`)
+      // console.log(`SecretSequenceCopy is ${secretSequenceCopy}`)
+      // console.log(`userAnswerCopy is ${userAnswerCopy}`)
       state.blacks.push(blackCurrentRow)
       // Check if guessed, else check for WhitePegs
       if (blackCurrentRow === state.board[0].length) {
@@ -112,13 +111,23 @@ const boardSlice = createSlice({
           state.endGame = true;
           state.victory = false;
         }
+        else {
+          boardSlice.caseReducers.incrementCurrentRow(state);
+        }
       }
-      boardSlice.caseReducers.incrementCurrentRow(state);
     },
+    resetBoard (state) {
+      state.board = [[0, 0, 0, 0, 0, 0]]
+      state.currentRow = 0
+      state.blacks = []
+      state.whites = []
+      state.endGame = false
+      state.victory = false
+    }
   },
 });
 
 export const selectVictory = (state: RootState) => state.board.victory;
 export const selectBoardState = (state: RootState) => state.board;
-export const { createBoard, changeColor, checkAnswer } = boardSlice.actions;
+export const { createBoard, changeColor, checkAnswer, resetBoard } = boardSlice.actions;
 export default boardSlice.reducer;

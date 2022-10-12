@@ -24,15 +24,11 @@ const EndGame = () => {
       </div>
       {
         victory === true
-          ? <>
-              <h2>Yeah!</h2>
-              <h3>You Guessed!</h3>
-            </> 
-          : <>
-              <h2>Whoops!</h2>
-              <h2>You lost!</h2>
-            </>
+          ? <h2>Yeah! You Guessed!</h2> 
+          : <h2>Whoops! You lost!</h2>
       }
+      <button className='restart-button'>Restart</button>
+      <button className='menu-button'>Menu</button>
     </div>
   )
 };

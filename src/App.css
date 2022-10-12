@@ -6,6 +6,7 @@
   --yellow: #ffca3aff;
   --green: #8ac926ff;
   --blue: #1982c4ff;
+  --blue-light: rgb(62, 149, 202);
   --violet: #6a4c93ff;
   --black: rgb(32, 31, 30);
   --white: rgb(255, 244, 233);
@@ -24,6 +25,22 @@
   align-items: center;
   justify-content: center;
   background-color: var(--black);
+}
+
+/* ------------ DEFAULTS ------------ */
+button {
+  font-family: 'Poppins', Courier, monospace;
+  text-align: center;
+  cursor: pointer;
+  color: var(--white);
+  background-color: var(--blue);
+  border: none;
+  border-radius: 3px;
+  box-shadow: 3px 3px 1px var(--gray-dark);
+}
+button:hover, .start-button:hover {
+  background-color: var(--blue-light);
+  transition: 0.5s;
 }
 
 /* ------------ HEADER ------------ */
@@ -70,11 +87,7 @@ header {
   width: 60px;
   height: 45px;
   font-size: 2rem;
-  box-shadow: 3px 3px 1px var(--gray-dark);
-  border: none;
-  color: var(--white);
-  background-color: var(--blue);
-  cursor: pointer;
+  box-shadow: 3px 3px 1px var(--gray-light);
 }
 .start-button {
   text-align: center;
@@ -98,9 +111,11 @@ header {
   background-color: var(--black);
 }
 .Board {
-  background-color: var(--gray-dark);
-  padding: 36px;
+  height: 80%;
+  margin-top: 60px;
+  padding: 12px 36px 12px 36px;
   border-radius: 3px;
+  background-color: var(--gray-dark);
 }
 .Row {
   display: flex;
@@ -109,28 +124,16 @@ header {
   border-radius: 3px;
   background-color: var(--gray-middle);
 }
-.UserSequence {
-}
 .CpuBox {
   display: flex;
   flex-flow: row wrap;
   width: 32px;
 }
 .check-button {
-  font-family: 'Poppins', Courier, monospace;
-  text-align: center;
   width: 100%;
   margin-top: 12px;
-  border-radius: 3px;
-  border: none;
   padding: 12px;
-  color: var(--white);
-  background-color: var(--blue);
-}
-.EndGame {
-  border-radius: 3px;
-  padding: 12px;
-  background-color: var(--gray-middle);
+  box-shadow: 1px 1px 1px var(--gray-light);
 }
 
 /* ------------ DOTS ------------ */
@@ -138,8 +141,12 @@ header {
   border-radius: 50%;
   display: inline-block;
   margin-bottom: 12px;
-  background-color: var(--gray-light);
   border: none;
+  transition: none;
+  background-color: var(--gray-light);
+}
+.dot:hover {
+  background-color: var(--gray-light);
 }
 .dot.user {
   height: 25px;
@@ -160,3 +167,16 @@ header {
 
 .black { background-color: var(--black); }
 .white { background-color: var(--white); }
+
+/* ------------ ENDGAME ------------ */
+.EndGame {
+  width: 100%;
+  border-radius: 3px;
+  padding: 12px;
+  background-color: var(--gray-middle);
+  margin-top: 6px;
+}
+.restart-button, .menu-button {
+  margin: 3px;
+  width: 40%;
+}
