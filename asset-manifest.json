@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/mastermind-game-react-app/static/css/main.9d4b3e7e.css",
-    "main.js": "/mastermind-game-react-app/static/js/main.583158df.js",
+    "main.js": "/mastermind-game-react-app/static/js/main.0238ec6d.js",
     "index.html": "/mastermind-game-react-app/index.html",
     "main.9d4b3e7e.css.map": "/mastermind-game-react-app/static/css/main.9d4b3e7e.css.map",
-    "main.583158df.js.map": "/mastermind-game-react-app/static/js/main.583158df.js.map"
+    "main.0238ec6d.js.map": "/mastermind-game-react-app/static/js/main.0238ec6d.js.map"
   },
   "entrypoints": [
     "static/css/main.9d4b3e7e.css",
-    "static/js/main.583158df.js"
+    "static/js/main.0238ec6d.js"
   ]
 }
