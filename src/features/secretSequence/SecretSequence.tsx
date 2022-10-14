@@ -1,6 +1,21 @@
-const SecretSequence = () => {
+import DotButton from "../board/DotButton";
+
+const SecretSequence = ({ secretSequence }: {
+  secretSequence: number[];
+}) => {
   return (
-    <div></div>
+    <>
+      {
+          secretSequence.map((dotValue, dotIndex) => {
+            return (
+              <DotButton
+                key={`secretDot_${dotIndex}`}
+                dotValue={dotValue}
+                dotIndex={dotIndex} />
+            )
+          })
+        }
+    </>
   )
 };
 

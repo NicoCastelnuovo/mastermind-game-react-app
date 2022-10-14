@@ -1,34 +1,44 @@
-import { selectVictory } from "../features/board/boardSlice";
-import DotButton from "../features/board/DotButton";
-import { selectSecretSequence } from "../features/secretSequence/secretSequenceSlice";
-import { useAppSelector } from "./hooks";
+import { selectVictory, resetBoard, createBoard } from "../features/board/boardSlice";
+import { createNewSequence, selectSecretSequence } from "../features/secretSequence/secretSequenceSlice";
+import { useAppDispatch, useAppSelector } from "./hooks";
+import { Link } from "react-router-dom";
+import { selectDifficulty, selectDifficultyRow } from "../features/difficulty/difficultySlice";
+import SecretSequence from "../features/secretSequence/SecretSequence";
 
 const EndGame = () => {
   const victory = useAppSelector(selectVictory)
   const secretSequence = useAppSelector(selectSecretSequence);
+  const difficulty = useAppSelector(selectDifficulty);
+  const difficultyRow = useAppSelector(selectDifficultyRow);
+  const dispatch = useAppDispatch();
+
+  const handleClick = () => {
+    dispatch(resetBoard());
+    dispatch(createNewSequence(difficultyRow));
+    dispatch(createBoard(difficulty));
+  }
 
   return (
     <div className='EndGame'>
       <div className='SecretSequence'>
         <p>Secret code was</p>
-        {
-          secretSequence.map((dotValue, dotIndex) => {
-            return (
-              <DotButton
-                key={`secretDot_${dotIndex}`}
-                dotValue={dotValue}
-                dotIndex={dotIndex} />
-            )
-          })
-        }
+        <SecretSequence secretSequence={secretSequence} />
       </div>
       {
         victory === true
           ? <h2>Yeah! You Guessed!</h2> 
           : <h2>Whoops! You lost!</h2>
       }
-      <button className='restart-button'>Restart</button>
-      <button className='menu-button'>Menu</button>
+      <button
+        className="restart-button"
+        onClick={() => handleClick()}>
+          Restart
+      </button>
+      <Link 
+        className="menu-button"
+        to={'/'}>
+          Menu
+      </Link>
     </div>
   )
 };

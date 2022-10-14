@@ -38,7 +38,7 @@ button {
   border-radius: 3px;
   box-shadow: 3px 3px 1px var(--gray-dark);
 }
-button:hover, .start-button:hover {
+.start-button:hover {
   background-color: var(--blue-light);
   transition: 0.5s;
 }
@@ -101,14 +101,12 @@ header {
 
 /* ------------ GAME PAGE ------------ */
 .GamePage {
-  width: 100%;
   height: 100vh;
   display: flex;
   flex-flow: column;
   justify-content: center;
   align-items: center;
   color: var(--white);
-  background-color: var(--black);
 }
 .Board {
   height: 80%;
@@ -131,7 +129,7 @@ header {
 }
 .check-button {
   width: 100%;
-  margin-top: 12px;
+  margin: 12px 0;
   padding: 12px;
   box-shadow: 1px 1px 1px var(--gray-light);
 }
@@ -143,9 +141,6 @@ header {
   margin-bottom: 12px;
   border: none;
   transition: none;
-  background-color: var(--gray-light);
-}
-.dot:hover {
   background-color: var(--gray-light);
 }
 .dot.user {
@@ -174,9 +169,19 @@ header {
   border-radius: 3px;
   padding: 12px;
   background-color: var(--gray-middle);
-  margin-top: 6px;
+  margin: 12px 0;
 }
 .restart-button, .menu-button {
+  text-decoration: none;
   margin: 3px;
-  width: 40%;
+  padding: 0 18px;
+  font-family: 'Poppins', Courier, monospace;
+  text-align: center;
+  font-size: 1rem;
+  cursor: pointer;
+  color: var(--white);
+  background-color: var(--blue);
+  border: none;
+  border-radius: 3px;
+  box-shadow: 3px 3px 1px var(--gray-dark);
 }
