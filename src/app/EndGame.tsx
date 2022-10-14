@@ -36,7 +36,7 @@ const EndGame = () => {
       </button>
       <Link 
         className="menu-button"
-        to={'/'}>
+        to={'/mastermind-game-react-app'}>
           Menu
       </Link>
     </div>

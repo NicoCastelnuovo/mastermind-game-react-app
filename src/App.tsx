@@ -10,7 +10,7 @@ const App: React.FC = () => {
     <div className='App'>
       <Header />
       <Routes>
-        <Route path="/" element={<IntroductionPage />}/>
+        <Route path="/mastermind-game-react-app" element={<IntroductionPage />}/>
         <Route path="/game" element={<GamePage />}/>
         <Route path='*' element={<h1>404 - Not Found</h1>} />
       </Routes>
