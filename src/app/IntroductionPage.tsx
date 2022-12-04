@@ -3,10 +3,10 @@ import Difficulty from '../features/difficulty/Difficulty';
 
 const IntroductionPage: React.FC = () => {
   return (
-    <main className='IntroductionPage'>
+    <div className='IntroductionPage'>
       <Difficulty />
       <Link className='start-button' to={'/game'}>Start</Link>
-    </main>
+    </div>
   )
 }
 

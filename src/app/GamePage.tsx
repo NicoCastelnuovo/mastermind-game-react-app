@@ -17,7 +17,7 @@ const GamePage: React.FC = () => {
   }, [])
 
   return (
-    <main className="GamePage">
+    <div className="GamePage">
       <Board />
       {
         endGame
@@ -27,7 +27,7 @@ const GamePage: React.FC = () => {
                 Check your Answer
             </button>
       }
-    </main>
+    </div>
   )
 }
 

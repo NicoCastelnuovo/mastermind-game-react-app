@@ -9,11 +9,13 @@ const App: React.FC = () => {
   return (
     <div className='App'>
       <Header />
-      <Routes>
-        <Route path="/mastermind-game-react-app" element={<IntroductionPage />}/>
-        <Route path="/game" element={<GamePage />}/>
-        <Route path='*' element={<h1>404 - Not Found</h1>} />
-      </Routes>
+      <main>
+        <Routes>
+          <Route path="/mastermind-game-react-app" element={<IntroductionPage />}/>
+          <Route path="/game" element={<GamePage />}/>
+          <Route path='*' element={<h1>404 - Not Found</h1>} />
+        </Routes>
+      </main>
     </div>
   )
 }
